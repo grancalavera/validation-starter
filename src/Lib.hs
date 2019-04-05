@@ -1,8 +1,12 @@
 module Lib
-    ( mkDivisor
+    ( Even
+    , Divisor
+    , Err
+    , mkDivisor
     , mkDivisorPair
     , mkEven
     , mkEvenPair
+    , mkEvenDivisor
     , value
     , pairValue
     )
@@ -43,3 +47,8 @@ mkEven n = Even <$> validate [IsNotEven n] even n
 
 mkEvenPair :: Int -> Int -> Validation [Err] (Even, Even)
 mkEvenPair x y = (,) <$> mkEven x <*> mkEven y
+
+mkEvenDivisor :: Int -> Validation [Err] Divisor
+mkEvenDivisor n = fromEither $ do
+    n' <- toEither $ value <$> mkEven n
+    toEither $ mkDivisor n'

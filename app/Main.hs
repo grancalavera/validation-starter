@@ -1,5 +1,6 @@
 module Main where
 
+import           Data.Validation
 import           Lib
 
 main :: IO ()
@@ -21,3 +22,8 @@ main = do
   print $ pairValue <$> mkEvenPair 4 2
   print $ pairValue <$> mkDivisorPair 0 9
   print $ pairValue <$> mkDivisorPair 0 0
+
+  -- operations
+  print $ (,) <$> mkEven 2 <*> mkEvenDivisor 0
+  print $ (,) <$> mkEven 2 <*> mkEvenDivisor 3
+  print $ (\x y -> (value x, value y)) <$> mkEven 4 <*> mkEvenDivisor 2
